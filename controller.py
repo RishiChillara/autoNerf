@@ -28,7 +28,7 @@ parser.add_argument('--edgetpu', help='Use Coral Edge TPU Accelerator to speed u
 args = parser.parse_args()
 
 videoStream = VideoStreamWrapper()
-videoStream.startStream(args.modeldir, args.graph, args.label, args.threshold, args.resolution, args.edgetpu)
+videoStream.startStream(args.modeldir, args.graph, args.labels, args.threshold, args.resolution, args.edgetpu)
 
 #Switch to turn off program
 OFF_PIN = 15;
