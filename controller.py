@@ -34,6 +34,8 @@ videoStream.startStream(args.modeldir, args.graph, args.labels, args.threshold, 
 OFF = (GPIO.input(OFF_PIN) + 1)%2
 
 while (True):
+    print("entered loop")
+    print("detect is blank") if videoStream.detect == "" else print("detect is not blank")
     if (videoStream.detect != ""):
         print("VS Detect: ",videoStream.detect)
         aim(videoStream.detect)
