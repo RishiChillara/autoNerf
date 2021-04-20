@@ -21,8 +21,8 @@ def aim(cmd):
 def move(cmd):
     if (cmd is "CCW"):
         print("Moving counter clockwise")
-        PIN1 = 23
-        PIN2 = 22
+        PIN1 = 21
+        PIN2 = 20
     else:
         print("Moving clockwise")
     GPIO.output(PIN1, 0)
