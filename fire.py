@@ -1,74 +1,68 @@
-#!/usr/bin/python3
-import RPi.GPIO as GPIO
+#!/usr/bin/python
+# Import required libraries
+import sys
 import time
+import RPi.GPIO as GPIO
  
-in1 = 17
-in2 = 27
-in3 = 22
-in4 = 23
+# Use BCM GPIO references
+# instead of physical pin numbers
+GPIO.setmode(GPIO.BCM)
  
-# careful lowering this, at some point you run into the mechanical limitation of how quick your motor can move
-step_sleep = 0.002
+# Define GPIO signals to use
+# Physical pins 11,15,16,18
+# GPIO17,GPIO22,GPIO23,GPIO24
+StepPins = [24,25,8,7]
  
-step_count = 4096 # 5.625*(1/64) per step, 4096 steps is 360°
+# Set all pins as output
+for pin in StepPins:
+  GPIO.setup(pin,GPIO.OUT)
+  GPIO.output(pin, False)
  
-direction = False # True for clockwise, False for counter-clockwise
+# Define advanced sequence
+# as shown in manufacturers datasheet
+Seq = [[1,0,0,1],
+       [1,0,0,0],
+       [1,1,0,0],
+       [0,1,0,0],
+       [0,1,1,0],
+       [0,0,1,0],
+       [0,0,1,1],
+       [0,0,0,1]]
  
-# defining stepper motor sequence (found in documentation http://www.4tronix.co.uk/arduino/Stepper-Motors.php)
-step_sequence = [[1,0,0,1],
-                 [1,0,0,0],
-                 [1,1,0,0],
-                 [0,1,0,0],
-                 [0,1,1,0],
-                 [0,0,1,0],
-                 [0,0,1,1],
-                 [0,0,0,1]]
+StepCount = len(Seq)
+StepDir = 1 # Set to 1 or 2 for clockwise
+            # Set to -1 or -2 for anti-clockwise
  
-# setting up
-GPIO.setmode( GPIO.BCM )
-GPIO.setup( in1, GPIO.OUT )
-GPIO.setup( in2, GPIO.OUT )
-GPIO.setup( in3, GPIO.OUT )
-GPIO.setup( in4, GPIO.OUT )
+# Read wait time from command line
+if len(sys.argv)&gt;1:
+  WaitTime = int(sys.argv[1])/float(1000)
+else:
+  WaitTime = 10/float(1000)
  
-# initializing
-GPIO.output( in1, GPIO.LOW )
-GPIO.output( in2, GPIO.LOW )
-GPIO.output( in3, GPIO.LOW )
-GPIO.output( in4, GPIO.LOW )
+# Initialise variables
+StepCounter = 0
  
+# Start main loop
+while True:
  
-motor_pins = [in1,in2,in3,in4]
-motor_step_counter = 0 ;
+  print StepCounter,
+  print Seq[StepCounter]
  
+  for pin in range(0, 4):
+    xpin = StepPins[pin]#
+    if Seq[StepCounter][pin]!=0:
+      GPIO.output(xpin, True)
+    else:
+      GPIO.output(xpin, False)
  
-def cleanup():
-    GPIO.output( in1, GPIO.LOW )
-    GPIO.output( in2, GPIO.LOW )
-    GPIO.output( in3, GPIO.LOW )
-    GPIO.output( in4, GPIO.LOW )
-    GPIO.cleanup()
+  StepCounter += StepDir
  
+  # If we reach the end of the sequence
+  # start again
+  if (StepCounter&gt;=StepCount):
+    StepCounter = 0
+  if (StepCounter&lt;0):
+    StepCounter = StepCount+StepDir
  
-# the meat
-try:
-    i = 0
-    for i in range(step_count):
-        for pin in range(0, len(motor_pins)):
-            GPIO.output( motor_pins[pin], step_sequence[motor_step_counter][pin] )
-        if direction==True:
-            motor_step_counter = (motor_step_counter - 1) % 8
-        elif direction==False:
-            motor_step_counter = (motor_step_counter + 1) % 8
-        else: # defensive programming
-            print( "uh oh... direction should *always* be either True or False" )
-            cleanup()
-            exit( 1 )
-        time.sleep( step_sleep )
- 
-except KeyboardInterrupt:
-    cleanup()
-    exit( 1 )
- 
-cleanup()
-exit( 0 )
+  # Wait before moving on
+  time.sleep(WaitTime)
