@@ -136,7 +136,7 @@ class VideoStreamWrapper:
                     xmax = int(min(imW,(boxes[i][3] * imW)))
 
                     self.detect = setDetect(ymin, xmin, ymax, xmax, imH, imW)
-                    print(self.detect)
+                    # print(self.detect)
 
                     cv2.rectangle(frame, (xmin,ymin), (xmax,ymax), (10, 255, 0), 2)
                     

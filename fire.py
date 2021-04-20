@@ -4,8 +4,8 @@ import time
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
-PIN1 = 22
-PIN2 = 23
+PIN1 = 20
+PIN2 = 21
 TRIGGER = 2
 
 GPIO.setup(PIN1, GPIO.OUT)
