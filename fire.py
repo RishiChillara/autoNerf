@@ -24,6 +24,8 @@ def move(cmd):
         PIN1 = 21
         PIN2 = 20
     else:
+        PIN1 = 20
+        PIN2 = 21
         print("Moving clockwise")
     GPIO.output(PIN1, 0)
     GPIO.output(PIN2, 1)
