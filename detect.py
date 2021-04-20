@@ -136,6 +136,7 @@ class VideoStreamWrapper:
                     xmax = int(min(imW,(boxes[i][3] * imW)))
 
                     self.detect = setDetect(ymin, xmin, ymax, xmax, imH, imW)
+                    print(self.detect)
 
                     cv2.rectangle(frame, (xmin,ymin), (xmax,ymax), (10, 255, 0), 2)
                     
@@ -153,7 +154,7 @@ class VideoStreamWrapper:
                     cv2.circle(frame, (xcenter, ycenter), 5, (0,0,255), thickness=-1)
 
                     # Print info
-                    print('Object ' + str(i) + ': ' + object_name + ' at (' + str(xcenter) + ', ' + str(ycenter) + ')')
+                    # print('Object ' + str(i) + ': ' + object_name + ' at (' + str(xcenter) + ', ' + str(ycenter) + ')')
 
             # Draw framerate in corner of frame
             cv2.putText(frame,'FPS: {0:.2f}'.format(frame_rate_calc),(30,50),cv2.FONT_HERSHEY_SIMPLEX,1,(255,255,0),2,cv2.LINE_AA)
