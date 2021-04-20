@@ -184,9 +184,9 @@ def setDetect(ymin, xmin, ymax, xmax, imgHeight, imageWidth):
     if (left_bound < xcenter < right_bound): 
         return "FIRE"
     elif (xcenter < left_bound):
-        return "CCW"
-    elif (right_bound < xcenter):
         return "CW"
+    elif (right_bound < xcenter):
+        return "CCW"
 
 # Define VideoStream class to handle streaming of video from webcam in separate processing thread
 class VideoStream:
