@@ -135,7 +135,7 @@ class VideoStreamWrapper:
                     ymax = int(min(imH,(boxes[i][2] * imH)))
                     xmax = int(min(imW,(boxes[i][3] * imW)))
 
-                    videostream.detect = setDetect(ymin, xmin, ymax, xmax, imH, imW)
+                    self.detect = setDetect(ymin, xmin, ymax, xmax, imH, imW)
 
                     cv2.rectangle(frame, (xmin,ymin), (xmax,ymax), (10, 255, 0), 2)
                     
@@ -174,18 +174,18 @@ class VideoStreamWrapper:
         cv2.destroyAllWindows()
         videostream.stop()
 
-    def setDetect(self, ymin, xmin, ymax, xmax, imgHeight, imageWidth):
-        THRESHOLD = .1 #a percent of the screen width
-        left_bound = imageWidth/2 - (imageWidth * THRESHOLD)
-        right_bound = imageWidth/2 + (imageWidth * THRESHOLD)
+def setDetect(ymin, xmin, ymax, xmax, imgHeight, imageWidth):
+    THRESHOLD = .1 #a percent of the screen width
+    left_bound = imageWidth/2 - (imageWidth * THRESHOLD)
+    right_bound = imageWidth/2 + (imageWidth * THRESHOLD)
 
-        xcenter = xmax - xmin 
-        if (left_bound < xcenter < right_bound): 
-            self.detect = "FIRE"
-        elif (xcenter < left_bound):
-            self.detect = "CCW"
-        elif (right_bound < xcenter):
-            self.detect = "CW"
+    xcenter = xmax - xmin 
+    if (left_bound < xcenter < right_bound): 
+        return "FIRE"
+    elif (xcenter < left_bound):
+        return "CCW"
+    elif (right_bound < xcenter):
+        return "CW"
 
 # Define VideoStream class to handle streaming of video from webcam in separate processing thread
 class VideoStream:
