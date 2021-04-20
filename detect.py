@@ -15,7 +15,7 @@ class VideoStreamWrapper:
     def resetDetect(self):
         self.detect = ""
 
-    def startStream(self, moderdir, graph, labels, threshold, resolution, edgetpu):
+    def startStream(self, modeldir, graph, labels, threshold, resolution, edgetpu):
         MODEL_NAME = modeldir
         GRAPH_NAME = graph
         LABELMAP_NAME = labels
