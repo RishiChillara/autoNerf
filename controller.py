@@ -3,6 +3,8 @@ from fire import aim
 import argparse
 import RPi.GPIO as GPIO
 
+OFF_PIN = 15
+
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
