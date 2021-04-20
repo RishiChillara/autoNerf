@@ -2,6 +2,7 @@ from detect import VideoStreamWrapper
 from fire import aim
 import argparse
 import RPi.GPIO as GPIO
+import thread
 
 OFF_PIN = 15
 
@@ -28,7 +29,7 @@ parser.add_argument('--edgetpu', help='Use Coral Edge TPU Accelerator to speed u
 args = parser.parse_args()
 
 videoStream = VideoStreamWrapper()
-videoStream.startStream(args.modeldir, args.graph, args.labels, args.threshold, args.resolution, args.edgetpu)
+thread.start_new_thread(videoStream.startStream, (args.modeldir, args.graph, args.labels, args.threshold, args.resolution, args.edgetpu))
 
 #Switch to turn off program
 OFF = (GPIO.input(OFF_PIN) + 1)%2
