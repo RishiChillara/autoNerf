@@ -2,7 +2,7 @@ from detect import VideoStreamWrapper
 from fire import aim
 import argparse
 import RPi.GPIO as GPIO
-import _thread
+import _thread as thread
 
 OFF_PIN = 15
 
