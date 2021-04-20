@@ -1,7 +1,6 @@
 from detect import VideoStreamWrapper
 from fire import aim
 import argparse
-
 import RPi.GPIO as GPIO
 
 GPIO.setmode(GPIO.BCM)

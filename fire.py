@@ -36,10 +36,6 @@ def fire():
         GPIO.output(TRIGGER, 0)
         time.sleep(20)
     GPIO.output(TRIGGER, 0)
-
-fire()
-        
-    
     
         
     
