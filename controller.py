@@ -31,10 +31,10 @@ videoStream = VideoStreamWrapper()
 videoStream.startStream(args.modeldir, args.graph, args.labels, args.threshold, args.resolution, args.edgetpu)
 
 #Switch to turn off program
-OFF_PIN = 15;
+OFF_PIN = 15
 OFF = (GPIO.input(15) + 1)%2
 
-while (GPIO.input(OFF_PIN) != OFF):
+while (True):
     if (videoStream.detect != ""):
         aim(videoStream.detect)
         videoStream.resetDetect
