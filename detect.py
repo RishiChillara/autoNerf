@@ -135,10 +135,9 @@ class VideoStreamWrapper:
                     ymax = int(min(imH,(boxes[i][2] * imH)))
                     xmax = int(min(imW,(boxes[i][3] * imW)))
 
-                    self.detect = setDetect(ymin, xmin, ymax, xmax, imH, imW)
                     # print(self.detect)
 
-                    
+
 
                     cv2.rectangle(frame, (xmin,ymin), (xmax,ymax), (10, 255, 0), 2)
                     
@@ -153,6 +152,8 @@ class VideoStreamWrapper:
                     # Draw circle in center
                     xcenter = xmin + (int(round((xmax - xmin) / 2)))
                     ycenter = ymin + (int(round((ymax - ymin) / 2)))
+                    self.detect = setDetect(xcenter, ycenter, imH, imW)
+
                     cv2.circle(frame, (xcenter, ycenter), 5, (0,0,255), thickness=-1)
 
                     # Print info
@@ -160,7 +161,7 @@ class VideoStreamWrapper:
 
             # Draw framerate in corner of frame
             cv2.putText(frame,'FPS: {0:.2f}'.format(frame_rate_calc),(30,50),cv2.FONT_HERSHEY_SIMPLEX,1,(255,255,0),2,cv2.LINE_AA)
-
+            image = cv2.line(image, start_point, end_point, color, thickness)
             # All the results have been drawn on the frame, so it's time to display it.
             cv2.imshow('Object detector', frame)
 
@@ -177,12 +178,10 @@ class VideoStreamWrapper:
         cv2.destroyAllWindows()
         videostream.stop()
 
-def setDetect(ymin, xmin, ymax, xmax, imgHeight, imageWidth):
+def setDetect(xcenter, ycenter,  imgHeight, imageWidth):
     THRESHOLD = .2 #a percent of the screen width
     left_bound = imageWidth/2 - (imageWidth * THRESHOLD)
     right_bound = imageWidth/2 + (imageWidth * THRESHOLD)
-
-    xcenter = xmax - xmin 
     if (left_bound < xcenter < right_bound): 
         return "FIRE"
     elif (xcenter < left_bound):
