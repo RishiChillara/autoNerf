@@ -6,6 +6,7 @@ import _thread as thread
 import time
 
 OFF_PIN = 15
+SLEEP_TIME = 0.5
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
@@ -38,7 +39,7 @@ OFF = (GPIO.input(OFF_PIN) + 1)%2
 while (True):
     # print("entered loop")
     # print("detect is blank") if videoStream.detect == "" else print("detect is not blank")
-    time.sleep(1)
+    time.sleep(SLEEP_TIME)
     if (videoStream.detect != ""):
         print("VS Detect: ",videoStream.detect)
         fire.aim(videoStream.detect)

@@ -178,7 +178,7 @@ class VideoStreamWrapper:
         videostream.stop()
 
 def setDetect(xcenter, ycenter,  imgHeight, imageWidth):
-    THRESHOLD = .2 #a percent of the screen width
+    THRESHOLD = .1 #a percent of the screen width
     left_bound = imageWidth/2 - (imageWidth * THRESHOLD)
     right_bound = imageWidth/2 + (imageWidth * THRESHOLD)
     if (left_bound < xcenter < right_bound): 
