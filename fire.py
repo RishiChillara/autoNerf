@@ -32,12 +32,9 @@ def move(cmd):
     
 def fire():
     print("FIRING")
-    for i in range(50):
-        GPIO.output(TRIGGER, 1)
-        time.sleep(1.5)
-        GPIO.output(TRIGGER, 0)
-        time.sleep(20)
-    GPIO.output(TRIGGER, 0)
+    GPIO.output(PIN1, 0)
+    GPIO.output(PIN2, 0)
+    GPIO.output(TRIGGER, 1)
     
         
     
