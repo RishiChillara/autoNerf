@@ -138,6 +138,8 @@ class VideoStreamWrapper:
                     self.detect = setDetect(ymin, xmin, ymax, xmax, imH, imW)
                     # print(self.detect)
 
+                    
+
                     cv2.rectangle(frame, (xmin,ymin), (xmax,ymax), (10, 255, 0), 2)
                     
                     # Draw label
@@ -176,7 +178,7 @@ class VideoStreamWrapper:
         videostream.stop()
 
 def setDetect(ymin, xmin, ymax, xmax, imgHeight, imageWidth):
-    THRESHOLD = .1 #a percent of the screen width
+    THRESHOLD = .2 #a percent of the screen width
     left_bound = imageWidth/2 - (imageWidth * THRESHOLD)
     right_bound = imageWidth/2 + (imageWidth * THRESHOLD)
 
