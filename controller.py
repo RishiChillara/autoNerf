@@ -3,6 +3,7 @@ import fire
 import argparse
 import RPi.GPIO as GPIO
 import _thread as thread
+import time
 
 OFF_PIN = 15
 
