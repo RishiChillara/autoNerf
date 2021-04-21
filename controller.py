@@ -38,7 +38,7 @@ OFF = (GPIO.input(OFF_PIN) + 1)%2
 while (True):
     # print("entered loop")
     # print("detect is blank") if videoStream.detect == "" else print("detect is not blank")
-    time.sleep(1)
+    time.sleep(2)
     if (videoStream.detect != ""):
         print("VS Detect: ",videoStream.detect)
         fire.aim(videoStream.detect)
